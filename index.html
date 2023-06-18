@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>the ans. show in console.log</h1>
+    <script>
+        class Solution {
+	reverse(head) {
+		if (head === null || head.next === null) {
+			return head;
+		}
+		let prev = null;
+		let next = null;
+		let curr = head;
+		while (curr !== null) {
+			next = curr.next;
+			curr.next = prev;
+			prev = curr;
+			curr = next;
+		}
+		head = prev;
+		return head;
+	}
+	addTwoLists(first, second) {
+		let curr1 = this.reverse(first);
+		let curr2 = this.reverse(second);
+		let sum = 0;
+		let carry = 0;
+		let res = null;
+		let prev = null;
+		while (curr1 !== null || curr2 !== null) {
+			sum = carry + (curr1 ? curr1.data : 0) + (curr2 ? curr2.data : 0);
+			carry = (sum >= 10 ? 1 : 0);
+			sum = sum % 10;
+			let temp = new Node(sum);
+			if (res === null) {
+				res = temp;
+			} else {
+				prev.next = temp;
+			}
+			prev = temp;
+			if (curr1) {
+				curr1 = curr1.next;
+			}
+			if (curr2) {
+				curr2 = curr2.next;
+			}
+		}
+
+
+		if (carry > 0) {
+			prev.next = new Node(carry);
+		}
+		let ans = this.reverse(res);
+		return ans;
+	}
+}
+
+class Node {
+	constructor(data) {
+		this.data = data;
+		this.next = null;
+	}
+}
+
+class LinkedList {
+	constructor() {
+		this.head = null;
+		this.tail = null;
+	}
+
+	insert(val) {
+		if (this.head === null) {
+			this.head = new Node(val);
+			this.tail = this.head;
+		} else {
+			this.tail.next = new Node(val);
+			this.tail = this.tail.next;
+		}
+	}
+}
+function printList(n) {
+	while (n) {
+		console.log(n.data + " ");
+		n = n.next;
+	}
+	console.log();
+}
+let arr1 = [2,4,3];
+let LL1 = new LinkedList();
+for (let i = 0; i < arr1.length; i++) {
+	LL1.insert(arr1[i]);
+}
+
+
+let arr2 = [7,0,8];
+let LL2 = new LinkedList();
+for (let i = 0; i < arr2.length; i++) {
+	LL2.insert(arr2[i]);
+}
+console.log("first list is");
+printList(LL2.head);
+
+
+
+    </script>
+</body>
+</html>
